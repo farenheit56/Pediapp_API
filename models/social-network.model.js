@@ -2,26 +2,23 @@ const { Sequelize} = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
 module.exports = (sequelize, Sequelize) => {
-  const InternalSection = sequelize.define('internal_sections', {
+  const SocialNetwork = sequelize.define('social_networks', {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    title: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    slider_url: {
+    url: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    description: {
-        type: Sequelize.STRING
-    },
-    support_image_url: {
+    icon_url: {
         type:Sequelize.STRING
     }
   })
-  return InternalSection
+  return SocialNetwork
 }

@@ -18,5 +18,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.internalSections = require("./internal-section.model.js")(sequelize, Sequelize);
+db.socialNetworks = require("./social-network.model.js")(sequelize, Sequelize);
+db.categories = require("./category.model.js")(sequelize, Sequelize);
+db.subcategories = require("./subcategory.model.js")(sequelize, Sequelize);
+db.contact = require("./contact.model.js")(sequelize, Sequelize);
 
-module.exports = db;    
+module.exports = db;

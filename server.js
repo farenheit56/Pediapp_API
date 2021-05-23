@@ -10,6 +10,10 @@ app.get('/', function (req, res) {
 });
 
 require("./routes/internal-section.routes")(app);
+require("./routes/social-network.routes")(app);
+require("./routes/category.routes")(app);
+require("./routes/subcategory.routes")(app);
+require("./routes/contact.routes")(app);
 
 app.listen(3000, function () {
 	  console.log('Aplicacion escuchando en el puerto 3000!');
