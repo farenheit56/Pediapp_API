@@ -22,5 +22,9 @@ db.socialNetworks = require("./social-network.model.js")(sequelize, Sequelize);
 db.categories = require("./category.model.js")(sequelize, Sequelize);
 db.subcategories = require("./subcategory.model.js")(sequelize, Sequelize);
 db.contact = require("./contact.model.js")(sequelize, Sequelize);
+db.products = require("./product.model.js")(sequelize, Sequelize);
+db.clients = require("./client.model.js")(sequelize, Sequelize);
+db.orders = require("./order.model.js")(sequelize, Sequelize);
+db.orderDetails = require("./order-detail.model.js")(sequelize, Sequelize);
 
 module.exports = db;
