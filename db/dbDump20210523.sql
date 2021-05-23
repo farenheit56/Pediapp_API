@@ -27,6 +27,9 @@ DROP TABLE IF EXISTS `internal_sections`;
 CREATE TABLE `internal_sections` (
   `internal_sections_id` int NOT NULL,
   `title` varchar(45) NOT NULL,
+  `slider_url` varchar(45) NOT NULL,
+  `description` varchar(3500) NOT NULL,
+  `support_image_url` varchar(45) NOT NULL,
   PRIMARY KEY (`internal_sections_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,6 +40,7 @@ CREATE TABLE `internal_sections` (
 
 LOCK TABLES `internal_sections` WRITE;
 /*!40000 ALTER TABLE `internal_sections` DISABLE KEYS */;
+INSERT INTO `internal_sections` VALUES (1,'Section 1','sliderimage1.jpg','Description 1','supportimage1.jpg');
 /*!40000 ALTER TABLE `internal_sections` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-22 22:26:17
+-- Dump completed on 2021-05-23 14:46:23

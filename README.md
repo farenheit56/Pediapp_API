@@ -1,2 +1,2 @@
-# Minerva_API
+# Minerva API
 API
