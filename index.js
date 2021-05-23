@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 const { Sequelize } = require('sequelize');
-const dbCredentials = require('./dbCredentials');
+const dbCredentials = require('./db/dbCredentials');
 
 const sequelize = new Sequelize(dbCredentials.databaseName, dbCredentials.user, dbCredentials.password, {
     host: dbCredentials.host,
