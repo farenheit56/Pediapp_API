@@ -12,3 +12,19 @@ exports.findAll = (req, res) => {
       });
   })
 };
+
+exports.findWhereCategoryId = (req,res) => {
+  let category_id = req.params.category_id
+
+  categorySubcategoryRelations.findAll({
+    attributes: [`id`, `category_id`, `subcategory_id`],
+    where: {category_id: category_id}})
+  .then(data => {
+    res.send(data);
+}).catch(err => {
+  res.status(500).send({
+      message:
+        err.message || "Hubo un problema consultando las subcategorías de la categoría consultada"
+    });
+})
+};

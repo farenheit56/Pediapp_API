@@ -26,6 +26,12 @@ db.products = require("./product.model.js")(sequelize, Sequelize);
 db.clients = require("./client.model.js")(sequelize, Sequelize);
 db.orders = require("./order.model.js")(sequelize, Sequelize);
 db.orderDetails = require("./order-detail.model.js")(sequelize, Sequelize);
-db.CategorySubcategoryRelations = require("./category-subcategory-relation.model.js")(sequelize, Sequelize);
+db.categorySubcategoryRelations = require("./category-subcategory-relation.model.js")(sequelize, Sequelize);
+db.productSubcategoryRelations = require("./product-subcategory-relation.model.js")(sequelize, Sequelize);
+
+db.products.hasMany(db.productSubcategoryRelations, {foreignKey: 'product_id'});
+db.productSubcategoryRelations.belongsTo(db.products);
+db.categories.hasMany(db.categorySubcategoryRelations, {foreignKey: 'category_id'})
+db.categorySubcategoryRelations.belongsTo(db.categories);
 
 module.exports = db;
