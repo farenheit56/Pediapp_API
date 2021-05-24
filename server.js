@@ -18,6 +18,7 @@ require("./routes/product.routes")(app);
 require("./routes/client.routes")(app);
 require("./routes/order.routes")(app);
 require("./routes/order-detail.routes")(app);
+require("./routes/category-subcategory-relation.routes")(app);
 
 app.listen(3000, function () {
 	  console.log('Aplicacion escuchando en el puerto 3000!');
