@@ -8,18 +8,12 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    order_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    product_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
     amount: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+  }, {
+    timestamps: false
   })
   return OrderDetail
 }

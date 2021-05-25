@@ -22,6 +22,8 @@ module.exports = (sequelize, Sequelize) => {
     support_image_url: {
         type:Sequelize.STRING
     }
+  }, {
+    timestamps: false
   })
   return InternalSection
 }

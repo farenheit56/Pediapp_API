@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,12 +49,12 @@ DROP TABLE IF EXISTS `clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clients` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `name` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `phone` int DEFAULT NULL,
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,9 +76,9 @@ DROP TABLE IF EXISTS `contact`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contact` (
   `id` int NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `phone` int DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -102,10 +102,10 @@ DROP TABLE IF EXISTS `internal_sections`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `internal_sections` (
   `id` int NOT NULL,
-  `title` varchar(45) NOT NULL,
-  `slider_url` varchar(45) NOT NULL,
-  `description` varchar(3500) NOT NULL,
-  `support_image_url` varchar(45) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `slider_url` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `support_image_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -128,16 +128,16 @@ DROP TABLE IF EXISTS `order_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_details` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `order_id` int NOT NULL,
-  `product_id` int DEFAULT NULL,
+  `id` int NOT NULL,
   `amount` int NOT NULL,
+  `orderId` int DEFAULT NULL,
+  `productId` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `order_id_idx` (`order_id`),
-  KEY `product_id_idx` (`product_id`),
-  CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `order_details_productId_foreign_idx` (`productId`),
+  KEY `orderId` (`orderId`),
+  CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `order_details_productId_foreign_idx` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (1,1,2,2);
+INSERT INTO `order_details` VALUES (1,2,1,2);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,14 +158,12 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `ts` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int NOT NULL,
+  `ts` datetime NOT NULL,
   `client_id` int NOT NULL,
-  `total_price` double NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `client_id_idx` (`client_id`),
-  CONSTRAINT `client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `total_price` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,13 +184,13 @@ DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `name` varchar(255) DEFAULT NULL,
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
   `price` double NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `image_url` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,11 +211,15 @@ DROP TABLE IF EXISTS `relation_category_subcategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `relation_category_subcategory` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `category_id` int NOT NULL,
-  `subcategory_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL,
+  `categoryId` int DEFAULT NULL,
+  `subcategoryId` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `categoryId` (`categoryId`),
+  KEY `subcategoryId` (`subcategoryId`),
+  CONSTRAINT `relation_category_subcategory_ibfk_5` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `relation_category_subcategory_ibfk_6` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,11 +264,15 @@ DROP TABLE IF EXISTS `relation_product_subcategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `relation_product_subcategory` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int NOT NULL,
-  `subcategory_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL,
+  `productId` int DEFAULT NULL,
+  `subcategoryId` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `relation_product_subcategory_subcategoryId_productId_unique` (`productId`,`subcategoryId`),
+  KEY `subcategoryId` (`subcategoryId`),
+  CONSTRAINT `relation_product_subcategory_ibfk_17` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `relation_product_subcategory_ibfk_18` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,9 +294,9 @@ DROP TABLE IF EXISTS `social_networks`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `social_networks` (
   `id` int NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `url` varchar(45) DEFAULT NULL,
-  `icon_url` varchar(45) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `icon_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -313,10 +319,10 @@ DROP TABLE IF EXISTS `subcategories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subcategories` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,42 +334,6 @@ LOCK TABLES `subcategories` WRITE;
 INSERT INTO `subcategories` VALUES (1,'Heladeras'),(2,'Microondas'),(3,'Macetas'),(4,'Sustratos'),(5,'Carpas'),(6,'Indumentaria para Trekking'),(7,'Guitarras'),(8,'Sintetizadores'),(9,'Juegos de mesa'),(10,'Juegos de Ingenio'),(11,'Celulares'),(12,'Alimentos Balanceados'),(13,'Cuchas'),(14,'Indumentaria Urbana');
 /*!40000 ALTER TABLE `subcategories` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Temporary view structure for view `view_product_category_subcategory`
---
-
-DROP TABLE IF EXISTS `view_product_category_subcategory`;
-/*!50001 DROP VIEW IF EXISTS `view_product_category_subcategory`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_product_category_subcategory` AS SELECT 
- 1 AS `id`,
- 1 AS `name`,
- 1 AS `price`,
- 1 AS `description`,
- 1 AS `image_url`,
- 1 AS `category`,
- 1 AS `subcategory`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Final view structure for view `view_product_category_subcategory`
---
-
-/*!50001 DROP VIEW IF EXISTS `view_product_category_subcategory`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_product_category_subcategory` AS select `product`.`id` AS `id`,`product`.`name` AS `name`,`product`.`price` AS `price`,`product`.`description` AS `description`,`product`.`image_url` AS `image_url`,`category`.`name` AS `category`,`subcategory`.`name` AS `subcategory` from ((((`products` `product` join `relation_product_category` `relation_category` on((`product`.`id` = `relation_category`.`product_id`))) join `relation_product_subcategory` `relation_subcategory` on((`product`.`id` = `relation_subcategory`.`product_id`))) join `categories` `category` on((`relation_category`.`category_id` = `category`.`id`))) join `subcategories` `subcategory` on((`relation_subcategory`.`subcategory_id` = `subcategory`.`id`))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -374,4 +344,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-24 18:10:53
+-- Dump completed on 2021-05-25  0:56:48

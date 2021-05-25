@@ -4,6 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.get("/", categories.findAll);
+    router.get("/:categoryId", categories.findWhereCategoryId);
   
     app.use('/api/categories', router);
   };

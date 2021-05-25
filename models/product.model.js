@@ -23,7 +23,9 @@ module.exports = (sequelize, Sequelize) => {
     image_url: {
       type: Sequelize.STRING,
       allowNull: false
-    },
+    }, 
+  }, {
+    timestamps: false
   })
   return Product
 }

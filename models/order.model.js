@@ -12,13 +12,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       allowNull: false
     },
-    client_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
     total_price: {
       type: Sequelize.DOUBLE,
     }
+  }, {
+    timestamps: false
   })
   return Order
 }

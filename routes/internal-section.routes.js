@@ -5,5 +5,5 @@ module.exports = app => {
 
     router.get("/", internalSections.findAll);
   
-    app.use('/api/internal-sections', router);
+    app.use('/api/internalSections', router);
   };

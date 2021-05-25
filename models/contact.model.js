@@ -16,10 +16,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
     },
     address: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   })
   return Contact
 }
