@@ -7,6 +7,10 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/images', express.static('images')); 
+
+global.__basedir = __dirname;
+
 app.get('/', function (req, res) {
 	  res.send('Hola PediApp');
 });

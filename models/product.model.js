@@ -6,7 +6,8 @@ module.exports = (sequelize, Sequelize) => {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: Sequelize.STRING,
@@ -22,7 +23,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     image_url: {
       type: Sequelize.STRING,
-      allowNull: false
     }, 
   }, {
     timestamps: false
