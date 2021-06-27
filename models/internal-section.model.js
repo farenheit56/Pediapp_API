@@ -6,7 +6,8 @@ module.exports = (sequelize, Sequelize) => {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     title: {
       type: Sequelize.STRING,
@@ -14,7 +15,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     slider_url: {
         type: Sequelize.STRING,
-        allowNull: false
     },
     description: {
         type: Sequelize.STRING

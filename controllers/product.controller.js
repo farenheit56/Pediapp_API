@@ -16,11 +16,18 @@ exports.findAll = (req, res) => {
 };
 
 exports.addProduct = (req, res) => {
-  products.create({
+
+  let new_product = {
     name: req.body.name, 
     price: req.body.price, 
-    description: req.body.description, 
-    image_url: req.file.filename})
+    description: req.body.description
+  }
+
+  if(Object.prototype.hasOwnProperty.call(req, 'file')) {
+    new_product.image_url = req.file.filename
+  }
+
+  products.create(new_product)
   .then(data => {
     res.send(data);
   }).catch(err => {
@@ -43,12 +50,20 @@ exports.deleteProduct = (req, res) => {
 }
 
 exports.editProduct = (req,res) => {
-  products.update({
+
+  let edited_product = {
     name: req.body.name, 
     price: req.body.price, 
-    description: req.body.description, 
-    image_url: req.file.filename},
+    description: req.body.description
+  }
+
+  if(Object.prototype.hasOwnProperty.call(req, 'file')) {
+    edited_product.image_url = req.file.filename
+  }
+
+  products.update(edited_product,
     {where: {id: req.params.productId}})
+    .then(() => {return products.findByPk(req.params.productId)})
     .then(data => {
       res.send(data);
     }).catch(err => {
