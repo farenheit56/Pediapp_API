@@ -5,6 +5,9 @@ module.exports = app => {
 
     router.get("/", categories.findAll);
     router.get("/:categoryId", categories.findWhereCategoryId);
+    router.post("/addCategory", categories.addCategory);
+    router.delete("/deleteCategory/:categoryId", categories.deleteCategory);
+    router.put("/editCategory/:categoryId", categories.editCategory);
   
     app.use('/api/categories', router);
   };

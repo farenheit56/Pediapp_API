@@ -15,6 +15,18 @@ exports.findAll = (req, res) => {
   })
 };
 
+exports.findForSubcategory = (req, res) => {
+  products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: {model: subcategories, through: { attributes: []}, where: {id: req.params.subcategoryId}}})
+  .then(data => {
+      res.send(data);
+  }).catch(err => {
+    res.status(500).send({
+        message:
+          err.message || "Hubo un problema consultando los productos de esta subcategoria"
+      });
+  })
+};
+
 exports.addProduct = (req, res) => {
 
   let new_product = {
@@ -73,3 +85,30 @@ exports.editProduct = (req,res) => {
         });
     })
 }
+
+exports.addSubcategory = (req, res) => {
+  return products.findByPk(req.body.productId)
+    .then((product) => {
+      if (!product) {
+        console.log("Producto no encontrado");
+        return null;
+      }
+      return subcategories.findByPk(req.body.subcategoryId)
+      .then((subcategory) => {
+        if (!subcategory) {
+          console.log("Subcategoria no encontrada");
+          return null;
+        }
+
+        product.addSubcategory(subcategory)
+        .then(() => {
+          return products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: {model: subcategories, through: { attributes: []}}})
+        })
+        console.log(`Se asignó la subcategoría id=${product.id} al producto id=${subcategory.id}`);
+        return product;
+      });
+    })
+    .catch((err) => {
+      console.log("Error al asignar subcategoria a producto: ", err);
+    });
+};
