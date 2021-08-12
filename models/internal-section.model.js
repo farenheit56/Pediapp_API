@@ -21,7 +21,15 @@ module.exports = (sequelize, Sequelize) => {
     },
     support_image_url: {
         type:Sequelize.STRING
-    }
+    },
+    path: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    component_name: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
   }, {
     timestamps: false
   })
