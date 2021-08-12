@@ -39,9 +39,12 @@ db.orders.belongsTo(db.clients)
 db.products.belongsToMany(db.subcategories, {through: 'relation_product_subcategory'})
 db.subcategories.belongsToMany(db.products, {through: 'relation_product_subcategory'})
 
+db.products.belongsToMany(db.categories, {through: 'relation_product_category'})
+db.categories.belongsToMany(db.products, {through: 'relation_product_category'})
+
 db.categories.belongsToMany(db.subcategories, {through: 'relation_category_subcategory'})
 db.subcategories.belongsToMany(db.categories, {through: 'relation_category_subcategory'})
 
-//sequelize.sync({alter:true}) ->Fuerza la modificación de todas las tablas. Descomentar si se modificó algun modelo o relación para que impacte en la DB
+//sequelize.sync({alter:true}) //->Fuerza la modificación de todas las tablas. Descomentar si se modificó algun modelo o relación para que impacte en la DB
 
 module.exports = db;

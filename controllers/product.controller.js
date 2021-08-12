@@ -1,10 +1,11 @@
+const { categories } = require("../models");
 const db = require("../models");
 const products = db.products;
 const subcategories = db.subcategories;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: {model: subcategories, through: { attributes: []}}})
+  products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
   .then(data => {
       res.send(data);
   }).catch(err => {
