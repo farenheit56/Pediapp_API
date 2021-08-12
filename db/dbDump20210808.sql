@@ -104,6 +104,8 @@ CREATE TABLE `internal_sections` (
   `slider_url` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `support_image_url` varchar(255) DEFAULT NULL,
+  `path` varchar(255) NOT NULL,
+  `component_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -114,7 +116,13 @@ CREATE TABLE `internal_sections` (
 
 LOCK TABLES `internal_sections` WRITE;
 /*!40000 ALTER TABLE `internal_sections` DISABLE KEYS */;
-INSERT INTO `internal_sections` VALUES (4,'LoremLoremLoremLoremLoremLoremLoremLoremLoremLorem','1624722087452-facebook.png','a2','1624722087452-twitter.png'),(5,'a7','1624731216721-facebook.png','b6asd','1624731225940-twitter.png'),(6,'Sin soporte','1624731407698-2021-02-08_9-24-57.png','Con Slider','1624731423037-residuos grafico de flujo.png'),(7,'a4',NULL,'f3',NULL);
+INSERT INTO `internal_sections` VALUES (1,'Inicio','sliderimage1.jpg','Description 1','supportimage1.jpg','/', 'Home');
+INSERT INTO `internal_sections` VALUES (2,'Productos','sliderimage1.jpg','Description 1','supportimage1.jpg','productos', 'Products');
+INSERT INTO `internal_sections` VALUES (3,'Quienes Somos','sliderimage1.jpg','Description 1','supportimage1.jpg','quienes-somos', 'Institutional');
+INSERT INTO `internal_sections` VALUES (4,'Pagos y Envios','sliderimage1.jpg','Description 1','supportimage1.jpg','pagos-y-envios', 'Payment');
+INSERT INTO `internal_sections` VALUES (5,'Contácto','sliderimage1.jpg','Description 1','supportimage1.jpg','contacto', 'Contact');
+INSERT INTO `internal_sections` VALUES (6,'Trabaja con nosotros','sliderimage1.jpg','Description 1','supportimage1.jpg','trabaja-con-nosotros', 'GenericSection');
+INSERT INTO `internal_sections` VALUES (7,'Guías CounterStrike','sliderimage1.jpg','Description 1','supportimage1.jpg','guias-cs', 'GenericSection');
 /*!40000 ALTER TABLE `internal_sections` ENABLE KEYS */;
 UNLOCK TABLES;
 
