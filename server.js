@@ -1,13 +1,16 @@
 var express = require('express');
 var cors = require('cors')
 var app = express();
+var path = require('path');
+
 
 app.use(cors())
 app.use(express.json()); 
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/images', express.static('images')); 
+//app.use('/images', express.static('images'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 global.__basedir = __dirname;
 
