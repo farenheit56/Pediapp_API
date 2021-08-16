@@ -4,7 +4,7 @@ const subcategories = db.subcategories
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  categories.findAll({attributes: [`id`, `name`], include: [{model: subcategories, through: { attributes: []}}]}).then(data => {
+  categories.findAll({attributes: [`id`, `name`,`path`], include: [{model: subcategories, through: { attributes: []}}]}).then(data => {
       res.send(data);
   }).catch(err => {
     res.status(500).send({
@@ -16,7 +16,7 @@ exports.findAll = (req, res) => {
 
 exports.findWhereCategoryId = (req,res) => {
   categories.findAll({
-    attributes: [`id`,`name`],
+    attributes: [`id`,`name`, `path`],
     include: [{model: subcategories, through: { attributes: []}}],
     where: {id: req.params.categoryId}})
   .then(data => {
@@ -30,7 +30,7 @@ exports.findWhereCategoryId = (req,res) => {
 };
 
 exports.addCategory = (req,res) => {
-
+  //Hay que agregar el path. igual al name pero remplazar espacios por - y todo en minuscula.
   let new_category = {
     name: req.body.name, 
   }

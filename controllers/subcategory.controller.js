@@ -4,7 +4,7 @@ const categories = db.categories;
 const subcategories = db.subcategories;
 
 exports.findAll = (req, res) => {
-  subcategories.findAll({attributes: [`id`, `name`]}).then(data => {
+  subcategories.findAll({attributes: [`id`, `name`,`path`]}).then(data => {
       res.send(data);
   }).catch(err => {
     res.status(500).send({
@@ -15,7 +15,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.addSubcategory = (req,res) => {
-
+  //Al igual que en categoria falta agrega el path.
   let new_subcategory = {
     name: req.body.name, 
   }

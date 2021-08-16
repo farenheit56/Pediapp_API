@@ -5,7 +5,7 @@ const subcategories = db.subcategories;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+  products.findAll({attributes: [`id`, `name`, `price`, `description`,`path`, `image_url`], include: { all: true }})
   .then(data => {
       res.send(data);
   }).catch(err => {
@@ -17,7 +17,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findForSubcategory = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: {model: subcategories, through: { attributes: []}, where: {id: req.params.subcategoryId}}})
+  products.findAll({attributes: [`id`, `name`, `price`, `description`,`path`, `image_url`], include: {model: subcategories, through: { attributes: []}, where: {id: req.params.subcategoryId}}})
   .then(data => {
       res.send(data);
   }).catch(err => {
@@ -29,7 +29,7 @@ exports.findForSubcategory = (req, res) => {
 };
 
 exports.addProduct = (req, res) => {
-
+  //agregar el path cuando se crea. tal como en categoria y subcat.
   let new_product = {
     name: req.body.name, 
     price: req.body.price, 

@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +36,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Electrodomésticos'),(2,'Jardinería'),(3,'Camping'),(4,'Instrumentos Musicales'),(5,'Juguetería'),(6,'Tecnología'),(7,'Mascotas'),(8,'Indumentaria');
+INSERT INTO `categories` VALUES (1,'Electrodomésticos','electrodomesticos'),(2,'Jardinería','jardineria'),(3,'Camping', 'camping'),(4,'Instrumentos Musicales', 'instrumentos-musicales'),(5,'Juguetería', 'jugueteria'),(6,'Tecnología','tecnologia'),(7,'Mascotas','mascotas'),(8,'Indumentaria','indumentaria');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +117,7 @@ CREATE TABLE `internal_sections` (
 
 LOCK TABLES `internal_sections` WRITE;
 /*!40000 ALTER TABLE `internal_sections` DISABLE KEYS */;
-INSERT INTO `internal_sections` VALUES (1,'Inicio','sliderimage1.jpg','Description 1','supportimage1.jpg','/','Home'),(2,'Productos','sliderimage1.jpg','Description 1','supportimage1.jpg','productos','Products'),(3,'Quienes Somos','sliderimage1.jpg','Description 1','supportimage1.jpg','quienes-somos','Institutional'),(4,'Pagos y Envios','sliderimage1.jpg','Description 1','supportimage1.jpg','pagos-y-envios','Payment'),(5,'Contácto','sliderimage1.jpg','Description 1','supportimage1.jpg','contacto','Contact'),(6,'Trabaja con nosotros','sliderimage1.jpg','Description 1','supportimage1.jpg','trabaja-con-nosotros','GenericSection'),(7,'Guías CounterStrike','sliderimage1.jpg','Description 1','supportimage1.jpg','guias-cs','GenericSection');
+INSERT INTO `internal_sections` VALUES (1,'Inicio','sliderimage1.png','Description 1','supportimage1.png','/','Home'),(2,'Productos','sliderimage1.png','Description 1','supportimage1.png','productos','Products'),(3,'Quienes Somos','sliderimage1.png','Description 1','supportimage1.png','quienes-somos','Institutional'),(4,'Pagos y Envios','sliderimage1.png','Description 1','supportimage1.png','pagos-y-envios','Payment'),(5,'Contácto','sliderimage1.png','Description 1','supportimage1.png','contacto','Contact'),(6,'Trabaja con nosotros','sliderimage1.png','Description 1','supportimage1.png','trabaja-con-nosotros','GenericSection'),(7,'Guías CounterStrike','sliderimage1.png','Description 1','supportimage1.png','guias-cs','GenericSection');
 /*!40000 ALTER TABLE `internal_sections` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,8 +191,10 @@ CREATE TABLE `products` (
   `name` varchar(255) NOT NULL,
   `price` double NOT NULL,
   `description` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `order` int DEFAULT NULL,
+
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -202,7 +205,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (2,'Heladera Whirlpool',54000.5,'Heladera blanca','prueba.png',NULL),(3,'Microondas Gama',27500.2,'Microondas de mucha potencia','prueba.png',NULL),(4,'Maceta 12L',150,'Maceta con capacidad de 12 litros','prueba.png',NULL),(5,'Sustrato  20L',525,'Sustrato de 20 litros','prueba.png',NULL),(6,'Carpa para acampar',4600,'Carpa para 5 personas con cierre','prueba.png',NULL),(7,'Carpa Indoor',8900,'Carpa para cultivos indoor de 80x80','prueba.png',NULL),(8,'Borcegos',6200,'Borcegos negros para hacer trekking','prueba.png',NULL),(9,'Guitarra Les Paul',150200,'La que usaba Slash','prueba.png',NULL),(10,'Sintetizador TR808',200650,'Para producir Trap','prueba.png',NULL),(11,'TEG',1400,'Horas y horas de un juego que no termina mas','prueba.png',NULL),(12,'Sudoku',1400,'Libro con 700 paginas de sudoku','prueba.png',NULL),(13,'Samsung Galaxy 10',1400,'Celular alta gama','prueba.png',NULL),(14,'Cat Chow',1400,'Alimento balanceado para gatos adultos','prueba.png',NULL),(15,'Cucha chica',1400,'Entra un caniche y un bulldog si lo compactas bien','prueba.png',NULL),(16,'Remera Básica',1400,'Blanca, mas basica no la vas a encontrar','prueba.png',NULL),(23,'Producto Prueba edit',231,'Producto prueba descr edit','prueba.png',NULL),(26,'Prueba imagen',12455,'Imagen de pruebas','prueba.png',NULL),(27,'Imagen final ok',1243,'Final ok','prueba.png',NULL);
+INSERT INTO `products` VALUES (2,'Heladera Whirlpool',54000.5,'Heladera blanca','heladera-whirlpool','prueba.png',NULL),(3,'Microondas Gama',27500.2,'Microondas de mucha potencia','microondas-gama','prueba.png',NULL),(4,'Maceta 12L',150,'Maceta con capacidad de 12 litros','maceta-12l','prueba.png',NULL),(5,'Sustrato  20L',525,'Sustrato de 20 litros','sustrato-20l','prueba.png',NULL),(6,'Carpa para acampar',4600,'Carpa para 5 personas con cierre','carpa-para-acampar','prueba.png',NULL),(7,'Carpa Indoor',8900,'Carpa para cultivos indoor de 80x80','carpa-indoor','prueba.png',NULL),(8,'Borcegos',6200,'Borcegos negros para hacer trekking','borcegos','prueba.png',NULL),(9,'Guitarra Les Paul',150200,'La que usaba Slash','guitarra-les-paul','prueba.png',NULL),(10,'Sintetizador TR808',200650,'Para producir Trap','sintetizador-tr808','prueba.png',NULL),(11,'TEG',1400,'Horas y horas de un juego que no termina mas','teg','prueba.png',NULL),(12,'Sudoku',1400,'Libro con 700 paginas de sudoku','sudoku','prueba.png',NULL),(13,'Samsung Galaxy 10',1400,'Celular alta gama','samsung-galaxy-10','prueba.png',NULL),(14,'Cat Chow',1400,'Alimento balanceado para gatos adultos','alimento-balanceado-para-gatos-adultos','prueba.png',NULL),(15,'Cucha chica',1400,'Entra un caniche y un bulldog si lo compactas bien','cucha-chica','prueba.png',NULL),(16,'Remera Básica',1400,'Blanca, mas basica no la vas a encontrar','remera-basica','prueba.png',NULL),(23,'Producto Prueba edit',231,'Producto prueba descr edit','producto-prueba-edit','prueba.png',NULL),(26,'Prueba imagen',12455,'Imagen de pruebas','prueba-imagen','prueba.png',NULL),(27,'Imagen final ok',1243,'Final ok','imagen-final-ok','prueba.png',NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,6 +325,7 @@ DROP TABLE IF EXISTS `subcategories`;
 CREATE TABLE `subcategories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -332,7 +336,7 @@ CREATE TABLE `subcategories` (
 
 LOCK TABLES `subcategories` WRITE;
 /*!40000 ALTER TABLE `subcategories` DISABLE KEYS */;
-INSERT INTO `subcategories` VALUES (1,'Heladeras'),(2,'Microondas'),(3,'Macetas'),(4,'Sustratos'),(5,'Carpas'),(6,'Indumentaria para Trekking'),(7,'Guitarras'),(8,'Sintetizadores'),(9,'Juegos de mesa'),(10,'Juegos de Ingenio'),(11,'Celulares'),(12,'Alimentos Balanceados'),(13,'Cuchas'),(14,'Indumentaria Urbana');
+INSERT INTO `subcategories` VALUES (1,'Heladeras','heladeras'),(2,'Microondas','microondas'),(3,'Macetas','macetas'),(4,'Sustratos','sustratos'),(5,'Carpas','carpas'),(6,'Indumentaria para Trekking','indumentaria-para-trekking'),(7,'Guitarras','guitarras'),(8,'Sintetizadores','sintetizadores'),(9,'Juegos de mesa','juegos-de-mesa'),(10,'Juegos de Ingenio','juegos-de-ingenio'),(11,'Celulares','celulares'),(12,'Alimentos Balanceados','alimentos-balanceados'),(13,'Cuchas','cuchas'),(14,'Indumentaria Urbana','indumentaria-urbana');
 /*!40000 ALTER TABLE `subcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
