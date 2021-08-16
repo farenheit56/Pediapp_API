@@ -19,8 +19,11 @@ module.exports = (sequelize, Sequelize) => {
     },
     order_id: {
       type: Sequelize.INTEGER,
-    },
+    }
+  },
+  {
     timestamps: false
-  })
+  }
+  )
   return Category
 }
