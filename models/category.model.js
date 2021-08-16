@@ -16,8 +16,10 @@ module.exports = (sequelize, Sequelize) => {
     path: {
       type: Sequelize.STRING,
       allowNull: false
-    }
-  },{
+    },
+    order_id: {
+      type: Sequelize.INTEGER,
+    },
     timestamps: false
   })
   return Category

@@ -27,9 +27,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     image_url: {
       type: Sequelize.STRING,
-    }, 
-    order: {
-      type: Sequelize.INTEGER,
     }
   }, {
     timestamps: false

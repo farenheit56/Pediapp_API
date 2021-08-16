@@ -1,10 +1,16 @@
+const { Sequelize } = require("../models");
 const db = require("../models");
 const categories = db.categories;
 const subcategories = db.subcategories
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  categories.findAll({attributes: [`id`, `name`,`path`], include: [{model: subcategories, through: { attributes: []}}]}).then(data => {
+  categories.findAll({
+    attributes: [`id`, `name`, `path`,`order_id`], 
+    include: [{model: subcategories, through: { attributes: []}}], 
+    order: ['order_id']
+  })
+    .then(data => {
       res.send(data);
   }).catch(err => {
     res.status(500).send({
@@ -74,4 +80,19 @@ exports.editCategory = (req,res) => {
             err.message || "Hubo un problema editando la categoría"
         });
     })
+}
+
+exports.orderCategories = (req,res) => {
+
+  req.body.forEach((element, index) => {
+    categories.update({order_id: index},
+      {where: {id: element.id}})
+      .catch(err => {
+        res.status(500).send({
+            message:
+              err.message || `Hubo un problema actualizando el orden de la categoría ${element.name}`
+          });
+      })
+  }); 
+
 }

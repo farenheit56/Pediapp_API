@@ -1,6 +1,6 @@
-const { categories } = require("../models");
 const db = require("../models");
 const products = db.products;
+const categories = db.categories;
 const subcategories = db.subcategories;
 const Op = db.Sequelize.Op;
 
@@ -16,16 +16,45 @@ exports.findAll = (req, res) => {
   })
 };
 
-exports.findForSubcategory = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`,`path`, `image_url`], include: {model: subcategories, through: { attributes: []}, where: {id: req.params.subcategoryId}}})
-  .then(data => {
+exports.findForCategory = (req, res) => {
+  products.findAll({
+    attributes: [`id`, `name`, `price`, `description`, `image_url`],
+    include: [{
+      model: categories, through: { attributes: [] },
+      where: { id: req.params.categoryId } },
+      {
+      model: subcategories, through: { attributes: [] },
+      }
+    ]})
+    .then(data => {
       res.send(data);
-  }).catch(err => {
-    res.status(500).send({
+    }).catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Hubo un problema consultando los productos de esta categoria"
+      });
+    })
+};
+
+exports.findForSubcategory = (req, res) => {
+  products.findAll({
+    attributes: [`id`, `name`, `price`, `description`, `path`,`image_url`],
+    include: [{
+      model: categories, through: { attributes: [] },
+      },
+      {
+      model: subcategories, through: { attributes: [] },
+      where: { id: req.params.subcategoryId } 
+      }
+    ]})
+    .then(data => {
+      res.send(data);
+    }).catch(err => {
+      res.status(500).send({
         message:
           err.message || "Hubo un problema consultando los productos de esta subcategoria"
       });
-  })
+    })
 };
 
 exports.addProduct = (req, res) => {
@@ -105,11 +134,125 @@ exports.addSubcategory = (req, res) => {
         .then(() => {
           return products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: {model: subcategories, through: { attributes: []}}})
         })
-        console.log(`Se asignó la subcategoría id=${product.id} al producto id=${subcategory.id}`);
-        return product;
+        .then(data => {
+          res.send(data);
+          console.log(`Se asignó la subcategoría id=${subcategory.id} al producto id=${product.id}`);
+        }).catch(err => {
+          res.status(500).send({
+              message:
+                err.message || "Hubo un problema editando la asociación del producto"
+            });
+        })
+        
       });
     })
     .catch((err) => {
       console.log("Error al asignar subcategoria a producto: ", err);
     });
 };
+
+exports.addCategory = (req,res) => {
+  return products.findByPk(req.body.productId)
+    .then((product) => {
+      if (!product) {
+        console.log("Producto no encontrado");
+        return null;
+      }
+      return categories.findByPk(req.body.categoryId)
+      .then((category) => {
+        if (!category) {
+          console.log("Categoria no encontrada");
+          return null;
+        }
+
+        product.addCategory(category)
+        .then(() => {
+          products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+        })
+        .then(data => {
+          res.send(data);
+          console.log(`Se asignó la Categoría id=${category.id} al producto id=${product.id}`);
+        }).catch(err => {
+          res.status(500).send({
+              message:
+                err.message || "Hubo un problema editando la asociación del producto"
+            });
+        })
+
+      });
+    })
+    .catch((err) => {
+      console.log("Error al asignar subcategoria a producto: ", err);
+    });
+};
+
+
+exports.separateCategory = (req,res) => {
+  return products.findByPk(req.body.productId)
+    .then((product) => {
+      if (!product) {
+        console.log("Producto no encontrado");
+        return null;
+      }
+      return categories.findByPk(req.body.categoryId)
+      .then((category) => {
+        if (!category) {
+          console.log("Categoria no encontrada");
+          return null;
+        }
+
+        product.removeCategory(category)
+        .then(() => {
+          products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+        })
+        .then(data => {
+          res.send(data);
+          console.log(`Se desvinculó la Categoría id=${category.id} al producto id=${product.id}`);
+        }).catch(err => {
+          res.status(500).send({
+              message:
+                err.message || "Hubo un problema editando el producto"
+            });
+        })
+
+      });
+    })
+    .catch((err) => {
+      console.log("Error al asignar subcategoria a producto: ", err);
+    });
+}
+
+exports.separateSubcategory = (req,res) => {
+  return products.findByPk(req.body.productId)
+    .then((product) => {
+      if (!product) {
+        console.log("Producto no encontrado");
+        return null;
+      }
+      return subcategories.findByPk(req.body.subcategoryId)
+      .then((subcategory) => {
+        if (!subcategory) {
+          console.log("Subcategoria no encontrada");
+          return null;
+        }
+
+        product.removeSubcategory(subcategory)
+        .then(() => {
+          products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+        })
+        .then(data => {
+          res.send(data);
+          console.log(`Se desvinculó la Subcategoría id=${category.id} al producto id=${product.id}`);
+        }).catch(err => {
+          res.status(500).send({
+              message:
+                err.message || "Hubo un problema editando el producto"
+            });
+        })
+
+      });
+    })
+    .catch((err) => {
+      console.log("Error al asignar subcategoria a producto: ", err);
+    });
+}

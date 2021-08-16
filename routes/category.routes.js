@@ -8,6 +8,7 @@ module.exports = app => {
     router.post("/addCategory", categories.addCategory);
     router.delete("/deleteCategory/:categoryId", categories.deleteCategory);
     router.put("/editCategory/:categoryId", categories.editCategory);
+    router.put("/orderCategories", categories.orderCategories);
   
     app.use('/api/categories', router);
   };
