@@ -17,7 +17,8 @@ exports.findAll = (req, res) => {
 exports.addSubcategory = (req,res) => {
   //Al igual que en categoria falta agrega el path.
   let new_subcategory = {
-    name: req.body.name, 
+    name: req.body.name,
+    path: req.body.name.toLowerCase().replace(" ", "-") 
   }
 //ESTO ES UN ASCO, EL REFACTOR CORRECTO SERIA TENER EL MODELO DE LA JUNCTION TABLE SIN ALIAS, PARA ASI NO TENER QUE USAR UNA RAW QUERY
   subcategories.create(new_subcategory)

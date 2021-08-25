@@ -17,6 +17,7 @@ exports.addSection = (req, res) => {
   let new_section = {
     title: req.body.title, 
     description: req.body.description, 
+    path: req.body.title.toLowerCase().replace(" ", "-")
   }
 
   if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {

@@ -62,7 +62,8 @@ exports.addProduct = (req, res) => {
   let new_product = {
     name: req.body.name, 
     price: req.body.price, 
-    description: req.body.description
+    description: req.body.description,
+    path: req.body.name.toLowerCase().replace(" ", "-")
   }
 
   if(Object.prototype.hasOwnProperty.call(req, 'file')) {

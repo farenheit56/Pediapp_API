@@ -39,6 +39,7 @@ exports.addCategory = (req,res) => {
   //Hay que agregar el path. igual al name pero remplazar espacios por - y todo en minuscula.
   let new_category = {
     name: req.body.name, 
+    path: req.body.name.toLowerCase().replace(" ", "-")
   }
 
   categories.create(new_category)
