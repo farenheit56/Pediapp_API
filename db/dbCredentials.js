@@ -1,6 +1,6 @@
 module.exports = {
-    databaseName:'pediapp',
+    databaseName:'pediapp_pediapp',
     host: 'localhost',
-    user: 'minerva',
-    password: 'minerva'
+    user: 'pediapp_administrador',
+    password: 'F4Q35JMaZFYvugd'
 }
