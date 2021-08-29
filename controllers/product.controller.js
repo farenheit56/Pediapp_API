@@ -5,7 +5,7 @@ const subcategories = db.subcategories;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`,`path`, `image_url`], include: { all: true }})
+  products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }})
   .then(data => {
       res.send(data);
   }).catch(err => {
@@ -16,9 +16,21 @@ exports.findAll = (req, res) => {
   })
 };
 
+exports.findAllActive = (req, res) => {
+  products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }, where: {active: 1}})
+  .then(data => {
+      res.send(data);
+  }).catch(err => {
+    res.status(500).send({
+        message:
+          err.message || "Hubo un problema consultando los productos activos"
+      });
+  })
+};
+
 exports.findForCategory = (req, res) => {
   products.findAll({
-    attributes: [`id`, `name`, `price`, `description`, `image_url`],
+    attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`],
     include: [{
       model: categories, through: { attributes: [] },
       where: { id: req.params.categoryId } },
@@ -38,7 +50,7 @@ exports.findForCategory = (req, res) => {
 
 exports.findForSubcategory = (req, res) => {
   products.findAll({
-    attributes: [`id`, `name`, `price`, `description`, `path`,`image_url`],
+    attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`],
     include: [{
       model: categories, through: { attributes: [] },
       },
@@ -63,6 +75,8 @@ exports.addProduct = (req, res) => {
     name: req.body.name, 
     price: req.body.price, 
     description: req.body.description,
+    active: req.body.active,
+    stock: req.body.stock,
     path: req.body.name.toLowerCase().replace(" ", "-")
   }
 
@@ -97,7 +111,13 @@ exports.editProduct = (req,res) => {
   let edited_product = {
     name: req.body.name, 
     price: req.body.price, 
-    description: req.body.description
+    description: req.body.description,
+    active: req.body.active,
+    stock: req.body.stock,
+  }
+
+  if(req.body.name != null) {
+    edited_product.path = req.body.name.toLowerCase().replace(" ", "-")
   }
 
   if(Object.prototype.hasOwnProperty.call(req, 'file')) {
@@ -133,7 +153,7 @@ exports.addSubcategory = (req, res) => {
 
         product.addSubcategory(subcategory)
         .then(() => {
-          return products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: {model: subcategories, through: { attributes: []}}})
+          return products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: {model: subcategories, through: { attributes: []}}})
         })
         .then(data => {
           res.send(data);
@@ -168,7 +188,7 @@ exports.addCategory = (req,res) => {
 
         product.addCategory(category)
         .then(() => {
-          products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+          products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }})
         })
         .then(data => {
           res.send(data);
@@ -204,7 +224,7 @@ exports.separateCategory = (req,res) => {
 
         product.removeCategory(category)
         .then(() => {
-          products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+          products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }})
         })
         .then(data => {
           res.send(data);
@@ -239,7 +259,7 @@ exports.separateSubcategory = (req,res) => {
 
         product.removeSubcategory(subcategory)
         .then(() => {
-          products.findAll({attributes: [`id`, `name`, `price`, `description`, `image_url`], include: { all: true }})
+          products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }})
         })
         .then(data => {
           res.send(data);

@@ -5,6 +5,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.get("/", products.findAll);
+    router.get("/activeProducts", products.findAllActive);
     router.get("/findForCategory/:categoryId", products.findForCategory);
     router.get("/findForSubcategory/:subcategoryId", products.findForSubcategory);
     router.post("/addProduct",upload.single("file"), products.addProduct);

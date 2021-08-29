@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false
     },
     description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     path: {
@@ -27,7 +27,15 @@ module.exports = (sequelize, Sequelize) => {
     },
     image_url: {
       type: Sequelize.STRING,
-    }
+    },
+    active: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
+    },
+    stock: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
+    },
   }, {
     timestamps: false
   })
