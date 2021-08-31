@@ -7,6 +7,10 @@ var path = require('path');
 app.use(cors())
 app.use(express.json()); 
 
+// Middleware para Vue.js router modo history
+const history = require('connect-history-api-fallback');
+app.use(history());
+
 app.use(express.urlencoded({ extended: true }));
 
 //app.use('/images', express.static('images'));
