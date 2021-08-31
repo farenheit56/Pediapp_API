@@ -54,6 +54,10 @@ exports.editSection = (req,res) => {
     title: req.body.title, 
     description: req.body.description
   }
+
+  if(req.body.name != null) {
+    edited_product.path = req.body.name.toLowerCase().replace(" ", "-")
+  }
   
   if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
     edited_section.slider_url = req.files.slider_image[0].filename
