@@ -17,14 +17,19 @@ exports.addSection = (req, res) => {
   let new_section = {
     title: req.body.title, 
     description: req.body.description, 
+    component_name: "GenericSection",
     path: req.body.title.toLowerCase().replace(" ", "-")
   }
 
-  if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
-    new_section.slider_url = req.files.slider_image[0].filename
-  }
-  if(Object.prototype.hasOwnProperty.call(req.files, 'support_image')) {
-    new_section.support_image_url = req.files.support_image[0].filename
+  if(req.files != undefined) {
+
+    if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
+      new_section.slider_url = req.files.slider_image[0].filename
+    }
+
+    if(Object.prototype.hasOwnProperty.call(req.files, 'support_image')) {
+      new_section.support_image_url = req.files.support_image[0].filename
+    }
   }
 
   internalSections.create(new_section)
