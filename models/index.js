@@ -27,6 +27,7 @@ db.clients = require("./client.model.js")(sequelize, Sequelize)
 db.orders = require("./order.model.js")(sequelize, Sequelize)
 db.orderDetails = require("./order-detail.model.js")(sequelize, Sequelize)
 db.users = require("./user.model.js")(sequelize, Sequelize)
+db.home = require("./home.model.js")(sequelize, Sequelize)
 
 db.orders.hasMany(db.orderDetails)
 db.orderDetails.belongsTo(db.orders)

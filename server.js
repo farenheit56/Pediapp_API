@@ -33,6 +33,7 @@ require("./routes/client.routes")(app);
 require("./routes/order.routes")(app);
 require("./routes/order-detail.routes")(app);
 require("./routes/user.routes")(app);
+require("./routes/home.routes")(app);
 
 app.listen(3001, function () {
 	  console.log('Aplicacion escuchando en el puerto 3001!');

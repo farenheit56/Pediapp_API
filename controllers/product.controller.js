@@ -70,7 +70,6 @@ exports.findForSubcategory = (req, res) => {
 };
 
 exports.addProduct = (req, res) => {
-  //agregar el path cuando se crea. tal como en categoria y subcat.
   let new_product = {
     name: req.body.name, 
     price: req.body.price, 
