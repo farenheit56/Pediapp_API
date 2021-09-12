@@ -24,19 +24,19 @@ exports.addHome = (req, res) => {
   if(req.files != undefined) {
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
-      new_section.slider_url = req.files.slider_image[0].filename
+      new_home.slider_url = req.files.slider_image[0].filename
     }
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'support_image')) {
-      new_section.support_image_url = req.files.support_image[0].filename
+      new_home.support_image_url = req.files.support_image[0].filename
     }
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'banner_1_image')) {
-      new_section.banner_1_image_url = req.files.banner_1_image[0].filename
+      new_home.banner_1_image_url = req.files.banner_1_image[0].filename
     }
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'banner_2_image')) {
-      new_section.banner_2_image_url = req.files.banner_2_image[0].filename
+      new_home.banner_2_image_url = req.files.banner_2_image[0].filename
     }
   }
 
@@ -62,19 +62,19 @@ exports.editHome = (req,res) => {
   if(req.files != undefined) {
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
-      new_section.slider_url = req.files.slider_image[0].filename
+      edited_home.slider_url = req.files.slider_image[0].filename
     }
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'support_image')) {
-      new_section.support_image_url = req.files.support_image[0].filename
+      edited_home.support_image_url = req.files.support_image[0].filename
     }
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'banner_1_image')) {
-      new_section.banner_1_image_url = req.files.banner_1_image[0].filename
+      edited_home.banner_image_1_url = req.files.banner_1_image[0].filename
     }
 
     if(Object.prototype.hasOwnProperty.call(req.files, 'banner_2_image')) {
-      new_section.banner_2_image_url = req.files.banner_2_image[0].filename
+      edited_home.banner_image_2_url = req.files.banner_2_image[0].filename
     }
   }
 
