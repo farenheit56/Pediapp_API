@@ -2,6 +2,7 @@ const db = require("../models");
 const products = db.products;
 const categories = db.categories;
 const subcategories = db.subcategories;
+const productImages = db.productImages;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
@@ -36,6 +37,9 @@ exports.findForCategory = (req, res) => {
       where: { id: req.params.categoryId } },
       {
       model: subcategories, through: { attributes: [] },
+      },
+      {
+      model: productImages
       }
     ]})
     .then(data => {
@@ -57,6 +61,9 @@ exports.findForSubcategory = (req, res) => {
       {
       model: subcategories, through: { attributes: [] },
       where: { id: req.params.subcategoryId } 
+      },
+      {
+      model: productImages
       }
     ]})
     .then(data => {
@@ -128,7 +135,8 @@ exports.editProduct = (req,res) => {
     .then(() => {return products.findByPk(req.params.productId)})
     .then(data => {
       res.send(data);
-    }).catch(err => {
+    })
+    .catch(err => {
       res.status(500).send({
           message:
             err.message || "Hubo un problema editando el producto"
@@ -275,4 +283,37 @@ exports.separateSubcategory = (req,res) => {
     .catch((err) => {
       console.log("Error al asignar subcategoria a producto: ", err);
     });
+}
+
+exports.relateImage = (req,res) => {
+  console.log("Estoy aca")
+  req.files.additional_images.forEach(image => {
+    let productImage = {
+      image_url: image.filename,
+      productId: req.body.productId  
+    }
+
+    productImages.create(productImage)
+    .then(data => {
+      res.send(data);
+    }).catch(err => {
+      res.status(500).send({
+          message:
+            err.message || "Hubo un problema agregando la imagen de galeria"
+        });
+    })
+  });
+}
+
+exports.separateImage = (req,res) => {
+  //Agregarle un then con un res.send 
+
+  productImages.destroy({
+    where: {id: req.body.imageId}})
+  .catch(err => {
+    res.status(500).send({
+        message:
+          err.message || "Hubo un problema eliminando la asociación de la imagen adicional"
+      });
+  })
 }

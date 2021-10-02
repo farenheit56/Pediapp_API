@@ -28,6 +28,7 @@ db.orders = require("./order.model.js")(sequelize, Sequelize)
 db.orderDetails = require("./order-detail.model.js")(sequelize, Sequelize)
 db.users = require("./user.model.js")(sequelize, Sequelize)
 db.home = require("./home.model.js")(sequelize, Sequelize)
+db.productImages = require("./product-image.model.js")(sequelize, Sequelize)
 
 db.orders.hasMany(db.orderDetails)
 db.orderDetails.belongsTo(db.orders)
@@ -37,6 +38,9 @@ db.orderDetails.belongsTo(db.products)
 
 db.clients.hasMany(db.orders)
 db.orders.belongsTo(db.clients)
+
+db.products.hasMany(db.productImages)
+db.productImages.belongsTo(db.products)
 
 db.products.belongsToMany(db.subcategories, {through: 'relation_product_subcategory'})
 db.subcategories.belongsToMany(db.products, {through: 'relation_product_subcategory'})
