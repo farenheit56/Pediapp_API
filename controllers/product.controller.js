@@ -310,9 +310,7 @@ exports.separateImage = (req,res) => {
 
   productImages.destroy({
     where: {id: req.body.imageId}})
-  .then(data => {
-      res.send(data)
-  }).catch(err => {
+  .catch(err => {
     res.status(500).send({
         message:
           err.message || "Hubo un problema eliminando la asociación de la imagen adicional"
