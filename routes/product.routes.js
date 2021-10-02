@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/findForSubcategory/:subcategoryId", products.findForSubcategory);
     router.post("/addProduct", upload.single("file"), products.addProduct);
     router.post("/relateImageToProduct", upload.fields([{name: 'file'}, {name: 'additional_images', maxCount: 6}]), products.relateImage);
-    router.post("/separateImageFroMProduct", products.separateImage)
+    router.post("/separateImageFromProduct", products.separateImage)
     router.put("/editProduct/:productId", upload.single("file"), products.editProduct);
     router.delete("/deleteProduct/:productId", products.deleteProduct);
     router.post("/relateProductToSubcategory", products.addSubcategory)
