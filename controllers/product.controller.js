@@ -286,7 +286,6 @@ exports.separateSubcategory = (req,res) => {
 }
 
 exports.relateImage = (req,res) => {
-  console.log("Estoy aca")
   req.files.additional_images.forEach(image => {
     let productImage = {
       image_url: image.filename,

@@ -36,6 +36,21 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false
     },
+    body_banner_image_1_url: {
+      type:Sequelize.STRING
+    },
+    body_banner_image_2_url: {
+      type:Sequelize.STRING
+    },
+    extra_info_image_1_url: {
+      type:Sequelize.STRING
+    },
+    extra_info_image_2_url: {
+      type:Sequelize.STRING
+    },
+    extra_info_image_3_url: {
+      type:Sequelize.STRING
+    },
   }, {
     freezeTableName: true,
     timestamps: false
