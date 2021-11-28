@@ -18,7 +18,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     address: {
       type: Sequelize.STRING,
-    }
+    },
+    email: {
+      type: Sequelize.STRING,
+    },
   }, {
     freezeTableName: true,
     timestamps: false
