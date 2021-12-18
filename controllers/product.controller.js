@@ -6,15 +6,21 @@ const productImages = db.productImages;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }})
-  .then(data => {
+  products.findAll({
+    order: [
+      ['id', 'DESC'],
+    ], 
+    attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`],
+    include: { all: true }
+  })
+    .then(data => {
       res.send(data);
-  }).catch(err => {
-    res.status(500).send({
+    }).catch(err => {
+      res.status(500).send({
         message:
           err.message || "Hubo un problema consultando los productos"
       });
-  })
+    })
 };
 
 exports.findAllActive = (req, res) => {
@@ -309,6 +315,9 @@ exports.separateImage = (req,res) => {
 
   productImages.destroy({
     where: {id: req.body.imageId}})
+  .then(() => {
+    res.status(200).send()
+  })
   .catch(err => {
     res.status(500).send({
         message:

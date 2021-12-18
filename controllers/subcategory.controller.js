@@ -36,12 +36,16 @@ exports.addSubcategory = (req,res) => {
 
 exports.deleteSubcategory = (req, res) => {
   subcategories.destroy({
-    where: {id: req.params.subcategoryId}})
+    where: { id: req.params.subcategoryId }
+  })
+  .then(() => {
+    res.status(200).send()
+  })
   .catch(err => {
     res.status(500).send({
-        message:
-          err.message || "Hubo un problema borrando la subcategoría"
-      });
+      message:
+        err.message || "Hubo un problema borrando la subcategoría"
+    });
   })
 }
 
