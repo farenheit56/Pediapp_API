@@ -18,7 +18,14 @@ exports.addSection = (req, res) => {
     title: req.body.title, 
     description: req.body.description, 
     component_name: "GenericSection",
-    path: req.body.title.toLowerCase().replace(" ", "-")
+    path: req.body.title.toLowerCase()
+    .replace(" ", "-")
+    .replace("ñ", "n")
+    .replace("á", "a")
+    .replace("é", "e")
+    .replace("í", "i")
+    .replace("ó", "o")
+    .replace("ú", "u")
   }
 
   if(req.files != undefined) {
@@ -55,13 +62,19 @@ exports.deleteSection = (req, res) => {
 }
 
 exports.editSection = (req,res) => {
+
+
   let edited_section = {
     title: req.body.title, 
-    description: req.body.description
-  }
-
-  if(req.body.name != null) {
-    edited_product.path = req.body.name.toLowerCase().replace(" ", "-")
+    description: req.body.description,
+    path: req.body.title.toLowerCase()
+    .replace(" ", "-")
+    .replace("ñ", "n")
+    .replace("á", "a")
+    .replace("é", "e")
+    .replace("í", "i")
+    .replace("ó", "o")
+    .replace("ú", "u")
   }
   
   if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
@@ -82,4 +95,28 @@ exports.editSection = (req,res) => {
             err.message || "Hubo un problema editando la sección"
         });
     })
+}
+
+exports.editProductSection = (req,res) => {
+
+  let edited_section = {
+    slider_url: undefined
+  }
+  
+  if(Object.prototype.hasOwnProperty.call(req.files, 'product_slider_image')) {
+    edited_section.slider_url = req.files.product_slider_image[0].filename
+
+    internalSections.update(edited_section,
+      {where: {component_name: 'Products'}})
+      .then(() => {
+        res.sendStatus(200)
+      }).catch(err => {
+        res.status(500).send({
+            message:
+              err.message || "Hubo un problema editando el slider de la sección de productos"
+          });
+      })
+  }
+
+  
 }

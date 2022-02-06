@@ -18,7 +18,14 @@ exports.addSubcategory = (req,res) => {
   //Al igual que en categoria falta agrega el path.
   let new_subcategory = {
     name: req.body.name,
-    path: req.body.name.toLowerCase().replace(" ", "-") 
+    path: req.body.name.toLowerCase()
+      .replace(" ", "-")
+      .replace("ñ", "n")
+      .replace("á", "a")
+      .replace("e", "é")
+      .replace("í", "i")
+      .replace("ó", "o")
+      .replace("ú", "u") 
   }
 //ESTO ES UN ASCO, EL REFACTOR CORRECTO SERIA TENER EL MODELO DE LA JUNCTION TABLE SIN ALIAS, PARA ASI NO TENER QUE USAR UNA RAW QUERY
   subcategories.create(new_subcategory)
@@ -37,6 +44,8 @@ exports.addSubcategory = (req,res) => {
 exports.deleteSubcategory = (req, res) => {
   subcategories.destroy({
     where: {id: req.params.subcategoryId}})
+  .then(() => {
+    res.sendStatus(200)})
   .catch(err => {
     res.status(500).send({
         message:
@@ -49,6 +58,14 @@ exports.editSubcategory = (req,res) => {
 
   let edited_subcategory = {
     name: req.body.name, 
+    path: req.body.name.toLowerCase()
+      .replace(" ", "-")
+      .replace("ñ", "n")
+      .replace("á", "a")
+      .replace("e", "é")
+      .replace("í", "i")
+      .replace("ó", "o")
+      .replace("ú", "u")
   }
 
   subcategories.update(edited_subcategory,

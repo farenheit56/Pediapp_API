@@ -6,9 +6,12 @@ const productImages = db.productImages;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }})
+  products.findAll({attributes: [`id`, `name`, `price`, `description`, `active`, `stock`, `path`, `image_url`], include: { all: true }}, {sort: {id: 1}})
   .then(data => {
-      res.send(data);
+      let products = data.sort((a, b) => {
+        return (b['id'] > a['id']) ? 1 : ((b['id'] < a['id']) ? -1 : 0);
+    });
+      res.send(products);
   }).catch(err => {
     res.status(500).send({
         message:

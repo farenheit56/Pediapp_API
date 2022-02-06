@@ -39,7 +39,14 @@ exports.addCategory = (req,res) => {
   //Hay que agregar el path. igual al name pero remplazar espacios por - y todo en minuscula.
   let new_category = {
     name: req.body.name, 
-    path: req.body.name.toLowerCase().replace(" ", "-")
+    path: req.body.name.toLowerCase()
+      .replace(" ", "-")
+      .replace("ñ", "n")
+      .replace("á", "a")
+      .replace("é", "e")
+      .replace("í", "i")
+      .replace("ó", "o")
+      .replace("ú", "u")
   }
 
   categories.create(new_category)
@@ -56,6 +63,8 @@ exports.addCategory = (req,res) => {
 exports.deleteCategory = (req, res) => {
   categories.destroy({
     where: {id: req.params.categoryId}})
+  .then(() => {
+    res.sendStatus(200)})
   .catch(err => {
     res.status(500).send({
         message:
@@ -67,7 +76,15 @@ exports.deleteCategory = (req, res) => {
 exports.editCategory = (req,res) => {
 
   let edited_category = {
-    name: req.body.name, 
+    name: req.body.name,
+    path: req.body.name.toLowerCase()
+      .replace(" ", "-")
+      .replace("ñ", "n")
+      .replace("á", "a")
+      .replace("é", "e")
+      .replace("í", "i")
+      .replace("ó", "o")
+      .replace("ú", "u")
   }
 
   categories.update(edited_category,

@@ -8,6 +8,7 @@ module.exports = app => {
     router.post("/addSection",upload.fields([{name: 'slider_image'}, {name: 'support_image'}]), internalSections.addSection);
     router.delete("/deleteSection/:sectionId", internalSections.deleteSection);
     router.put("/editSection/:sectionId",upload.fields([{name: 'slider_image'}, {name: 'support_image'}]), internalSections.editSection);
+    router.put("/editProductSlider",upload.fields([{name: 'product_slider_image'}]), internalSections.editProductSection);
    
     app.use('/api/internalSections', router);
   };
