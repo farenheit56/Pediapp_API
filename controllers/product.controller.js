@@ -17,7 +17,7 @@ exports.findAll = (req, res) => {
         message:
           err.message || "Hubo un problema consultando los productos"
       });
-  })
+    })
 };
 
 exports.findAllActive = (req, res) => {
@@ -289,7 +289,6 @@ exports.separateSubcategory = (req,res) => {
 }
 
 exports.relateImage = (req,res) => {
-  console.log("Estoy aca")
   req.files.additional_images.forEach(image => {
     let productImage = {
       image_url: image.filename,
@@ -313,6 +312,9 @@ exports.separateImage = (req,res) => {
 
   productImages.destroy({
     where: {id: req.body.imageId}})
+  .then(() => {
+    res.status(200).send()
+  })
   .catch(err => {
     res.status(500).send({
         message:

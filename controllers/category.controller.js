@@ -105,6 +105,9 @@ exports.orderCategories = (req,res) => {
   req.body.forEach((element, index) => {
     categories.update({order_id: index},
       {where: {id: element.id}})
+      .then(data => {
+        res.send(data)
+      })
       .catch(err => {
         res.status(500).send({
             message:

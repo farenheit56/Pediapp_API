@@ -3,7 +3,7 @@ const contact = db.contact;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  contact.findAll({attributes: [`id`, `name`, `phone`, `address`]}).then(data => {
+  contact.findAll({attributes: [`id`, `name`, `phone`, `address`, `email`]}).then(data => {
       res.send(data);
   }).catch(err => {
     res.status(500).send({
@@ -17,7 +17,8 @@ exports.addContact = (req, res) => {
   contact.create({
     name: req.body.name, 
     phone: req.body.phone, 
-    address: req.body.address})
+    address: req.body.address,
+    email: req.body.email})
   .then(data => {
     res.send(data);
   }).catch(err => {
@@ -43,7 +44,8 @@ exports.editContact = (req,res) => {
   contact.update({
     name: req.body.name, 
     phone: req.body.phone, 
-    address: req.body.address},
+    address: req.body.address,
+    email: req.body.email},
     {where: {id: req.params.contactId}})
     .then(() => {return contact.findByPk(req.params.contactId)})
     .then(data => {

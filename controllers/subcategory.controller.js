@@ -48,9 +48,9 @@ exports.deleteSubcategory = (req, res) => {
     res.sendStatus(200)})
   .catch(err => {
     res.status(500).send({
-        message:
-          err.message || "Hubo un problema borrando la subcategoría"
-      });
+      message:
+        err.message || "Hubo un problema borrando la subcategoría"
+    });
   })
 }
 
