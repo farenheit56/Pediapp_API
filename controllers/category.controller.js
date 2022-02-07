@@ -40,13 +40,13 @@ exports.addCategory = (req,res) => {
   let new_category = {
     name: req.body.name, 
     path: req.body.name.toLowerCase()
-      .replace(" ", "-")
-      .replace("ñ", "n")
-      .replace("á", "a")
-      .replace("é", "e")
-      .replace("í", "i")
-      .replace("ó", "o")
-      .replace("ú", "u")
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 
   categories.create(new_category)
@@ -78,13 +78,13 @@ exports.editCategory = (req,res) => {
   let edited_category = {
     name: req.body.name,
     path: req.body.name.toLowerCase()
-      .replace(" ", "-")
-      .replace("ñ", "n")
-      .replace("á", "a")
-      .replace("é", "e")
-      .replace("í", "i")
-      .replace("ó", "o")
-      .replace("ú", "u")
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 
   categories.update(edited_category,

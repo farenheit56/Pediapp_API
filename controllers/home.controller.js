@@ -18,7 +18,7 @@ exports.addHome = (req, res) => {
     title: req.body.title, 
     description: req.body.description, 
     component_name: "home",
-    path: req.body.title.toLowerCase().replace(" ", "-")
+    path: '/'
   }
 
   if(req.files != undefined) {
@@ -72,7 +72,7 @@ exports.editHome = (req,res) => {
     title: req.body.title, 
     description: req.body.description, 
     component_name: "home",
-    path: req.body.title.toLowerCase().replace(" ", "-")
+    path: '/'
   }
 
   if(req.files != undefined) {

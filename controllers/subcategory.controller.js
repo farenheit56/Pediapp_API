@@ -19,13 +19,13 @@ exports.addSubcategory = (req,res) => {
   let new_subcategory = {
     name: req.body.name,
     path: req.body.name.toLowerCase()
-      .replace(" ", "-")
-      .replace("ñ", "n")
-      .replace("á", "a")
-      .replace("é", "e")
-      .replace("í", "i")
-      .replace("ó", "o")
-      .replace("ú", "u") 
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 //ESTO ES UN ASCO, EL REFACTOR CORRECTO SERIA TENER EL MODELO DE LA JUNCTION TABLE SIN ALIAS, PARA ASI NO TENER QUE USAR UNA RAW QUERY
   subcategories.create(new_subcategory)
@@ -59,13 +59,13 @@ exports.editSubcategory = (req,res) => {
   let edited_subcategory = {
     name: req.body.name, 
     path: req.body.name.toLowerCase()
-      .replace(" ", "-")
-      .replace("ñ", "n")
-      .replace("á", "a")
-      .replace("é", "e")
-      .replace("í", "i")
-      .replace("ó", "o")
-      .replace("ú", "u")
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 
   subcategories.update(edited_subcategory,

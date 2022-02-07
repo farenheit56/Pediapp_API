@@ -86,7 +86,14 @@ exports.addProduct = (req, res) => {
     description: req.body.description,
     active: req.body.active,
     stock: req.body.stock,
-    path: req.body.name.toLowerCase().replace(" ", "-")
+    path: req.body.name.toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 
   if(Object.prototype.hasOwnProperty.call(req, 'file')) {
@@ -126,7 +133,14 @@ exports.editProduct = (req,res) => {
   }
 
   if(req.body.name != null) {
-    edited_product.path = req.body.name.toLowerCase().replace(" ", "-")
+    edited_product.path = req.body.name.toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 
   if(Object.prototype.hasOwnProperty.call(req, 'file')) {

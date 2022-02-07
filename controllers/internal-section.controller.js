@@ -19,13 +19,13 @@ exports.addSection = (req, res) => {
     description: req.body.description, 
     component_name: "GenericSection",
     path: req.body.title.toLowerCase()
-    .replace(" ", "-")
-    .replace("ñ", "n")
-    .replace("á", "a")
-    .replace("é", "e")
-    .replace("í", "i")
-    .replace("ó", "o")
-    .replace("ú", "u")
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
 
   if(req.files != undefined) {
@@ -68,13 +68,13 @@ exports.editSection = (req,res) => {
     title: req.body.title, 
     description: req.body.description,
     path: req.body.title.toLowerCase()
-    .replace(" ", "-")
-    .replace("ñ", "n")
-    .replace("á", "a")
-    .replace("é", "e")
-    .replace("í", "i")
-    .replace("ó", "o")
-    .replace("ú", "u")
+    .replace(/ /g, "-")
+    .replace(/ñ/g, "n")
+    .replace(/á/g, "a")
+    .replace(/é/g, "e")
+    .replace(/í/g, "i")
+    .replace(/ó/g, "o")
+    .replace(/ú/g, "u")
   }
   
   if(Object.prototype.hasOwnProperty.call(req.files, 'slider_image')) {
