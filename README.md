@@ -1,2 +1,2 @@
-# Minerva API
-API
+# Pediapp API
+API Rest
